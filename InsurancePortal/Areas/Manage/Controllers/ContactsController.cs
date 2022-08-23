@@ -61,7 +61,8 @@ namespace InsurancePortal.Areas.Manage.Controllers
             {
                 _context.Add(contact);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // return RedirectToAction(nameof(Index));/
+                return View("ContactConfirm");
             }
             return View(contact);
         }
