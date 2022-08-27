@@ -4,44 +4,26 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Our Products</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PolicyName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PolicyImageURL)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PolicyCategory)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PolicyName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PolicyImageURL)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PolicyCategory.CategoryName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PolicyId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PolicyId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PolicyId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+
+<div class="card-columns mt-3">
+
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <img class="card-img-top" src="@item.PolicyImageURL" alt="Card image cap" style="height:250px">
+            <div class="card-body">
+                <h4 class="card-title"> @item.PolicyName </h4>
+
+            </div>
+            <div class="card-footer">
+
+                <a class="btn btn-primary" asp-action="Create" asp-area="Manage" asp-controller="Orders" style="color:white"> Go and Apply</a>
+                <a class="btn btn-primary" style="color:white" asp-action="Details" asp-route-id="@item.PolicyId">Details</a>
+            </div>
+        </div>
+    }
+
+</div>

@@ -68,9 +68,9 @@ namespace InsurancePortal.Migrations
                 {
                     CustomerID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerName = table.Column<string>(maxLength: 20, nullable: false),
+                    CustomerName = table.Column<string>(maxLength: 50, nullable: false),
                     CustomerAddress = table.Column<string>(nullable: true),
-                    ContactNumber = table.Column<int>(maxLength: 10, nullable: false)
+                    ContactNumber = table.Column<string>(maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -218,6 +218,45 @@ namespace InsurancePortal.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    OrderID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PolicyId = table.Column<int>(nullable: false),
+                    OrderDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.OrderID);
+                    table.ForeignKey(
+                        name: "FK_Orders_Pollicies_PolicyId",
+                        column: x => x.PolicyId,
+                        principalTable: "Pollicies",
+                        principalColumn: "PolicyId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderDetails",
+                columns: table => new
+                {
+                    OrderDetailId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderDetails", x => x.OrderDetailId);
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_Orders_OrderID",
+                        column: x => x.OrderID,
+                        principalTable: "Orders",
+                        principalColumn: "OrderID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -258,6 +297,16 @@ namespace InsurancePortal.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_OrderID",
+                table: "OrderDetails",
+                column: "OrderID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_PolicyId",
+                table: "Orders",
+                column: "PolicyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Pollicies_CategoryId",
                 table: "Pollicies",
                 column: "CategoryId");
@@ -287,13 +336,19 @@ namespace InsurancePortal.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Pollicies");
+                name: "OrderDetails");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Pollicies");
 
             migrationBuilder.DropTable(
                 name: "PolicyCategories");

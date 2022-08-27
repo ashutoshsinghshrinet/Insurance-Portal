@@ -1,10 +1,15 @@
 ﻿@using InsurancePortal.Areas.Show.ViewModels;
+@using InsurancePortal.Models;
 @model ShowPolicyViewModels;
 
 @{
 }
 
-<h1>Explore diffrent Policies!!</h1>
+
+
+<h1>Explore our Services!!</h1>
+
+
 
 <div class="row">
     <div class="col-md-4">
@@ -20,6 +25,8 @@
         </form>
     </div>
 </div>
+
+
 
 
 @if (Model != null && Model.Policies != null)
@@ -38,16 +45,47 @@
                     </div>
                     <div class="card-footer">
 
-                        <button class="btn btn-sm btn-primary" type="submit"
-                        asp-area="Menu" asp-controller="Home"
-                        asp-action="AddToCart" asp-route-id="@item.PolicyId">
-                            Add to Cart
-                        </button>
+                        <button class="btn btn-sm btn-primary"
+                        type="button" onclick="fAddToCart(@item.PolicyId)">Apply For It</button>
+
                     </div>
                 </div>
             }
         </div>
     </form>
+}
+
+
+@section Scripts {
+    <script>
+        function fAddToCart(productId) {
+            //---- for DEBUGGING purposes
+            // let ddlQuantity = 'QuantityFor' + productId;
+            // alert('add to cart clicked for id = ' + productId);
+            // alert('ddl Name = ' + ddlQuantity);
+            // alert( 'ddl Value = ' + $('#' + ddlQuantity).val() );
+            let data = {
+                "productId": productId,
+                
+            };
+            console.log(data);                                  // for DEBUGGING purposes
+            const http = new XMLHttpRequest();
+            const url = '/api/AddToOrder';
+            try {
+                http.open('POST', url);
+                http.setRequestHeader('content-type', 'application/json');
+                http.send(JSON.stringify(data));
+                http.onload = function () {
+                    console.log(http.responseText);             // for DEBUGGING purposes
+                    let responseObject = JSON.parse(http.responseText);
+                    alert(responseObject.status);           // from the JSON serialization object received in the response.
+                };
+            }
+            catch (error) {
+                alert(error.message);
+            }
+        }
+    </script>
 }
 
 

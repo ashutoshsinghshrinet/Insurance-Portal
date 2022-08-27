@@ -1,4 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@using InsurancePortal.Models;
+@using Microsoft.AspNetCore.Identity
+u
+
+@inject UserManager<IdentityUser> userManager
+@{
+    IdentityUser userObj = null;
+    if (this.User != null)
+    {
+        userObj = await userManager.GetUserAsync(this.User);
+    }
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -47,7 +60,7 @@
                 <div class="site-navbar bg-light">
                     <div class="row align-items-center">
                         <div class="col-2">
-                            <h2 class="mb-0 site-logo"><a href="index.html" class="font-weight-bold">Let's Care !!!</a></h2>
+                            <h2 class="mb-0 site-logo"><a asp-page="/Index" class="font-weight-bold">Let's Care !!!</a></h2>
                         </div>
                         <div class="col-10">
                             <nav class="site-navigation text-right" role="navigation">
@@ -55,9 +68,10 @@
                                     <div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
 
                                     <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                        <li class="active"><a href="index.html">Home</a></li>
-                                        <li class="has-children">
-                                            <a href="insurance.html">Insurance Products</a>
+                                        <li class="active"><a asp-area="" asp-page="/Index">Home</a></li>
+                                        <li><a asp-area="Manage" asp-controller="PolicyCategories" asp-action="">Products</a></li>
+                                        @*<li class="has-children">
+                                            <a href="insurance.html"> Products</a>
                                             <ul class="dropdown arrow-top">
                                                 <li><a href="#">Life Insurance</a></li>
                                                 <li><a href="#">Health Insurance</a></li>
@@ -71,15 +85,21 @@
                                                     </ul>
                                                 </li>
                                             </ul>
-
-
-
-                                        </li>
-                                        <li><a href="services.html">Services</a></li>
-                                        <li><a href="blog.html">Blog</a></li>
-                                        <li><a href="about.html">About</a></li>
-                                        <li><a asp-area="Manage" asp-controller="Contacts" asp-action="Create">Contact</a></li>
-                                        <li><a ><span class="d-inline-block p-3 bg-primary text-white btn btn-primary">Get A Quote</span></a></li>
+                                        </li>*@
+                                        
+                                        
+                                        <li><a asp-area ="Manage" asp-controller="Policies" asp-action="Index">Explore</a></li>
+                                        
+                                        <li><a  asp-area="Manage" asp-controller="Contacts" asp-action="Create">Contact Us!!!</a></li>
+                                        @if (userObj != null)
+                                        {
+                                            if (await userManager.IsInRoleAsync(userObj, MyIdentityRoleNames.AppAdmin.ToString()))
+                                            {
+                                                <li><a asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a></li>
+                                            }
+                                        }
+                                        
+                                        
                                         <li><partial name="_LoginPartial" /></li>
                                     </ul>
                                     
@@ -152,7 +172,9 @@
                     <p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         Copyright &copy; <script>document.write(new Date().getFullYear());</script> All Rights Reserved | Let's Care !!!
+                        <a href="/swagger">Open API Documentation</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        <a class="btn btn-success" href="#" style="color:white; margin-left:300px"> Back to Top</a>
                     </p>
                 </div>
 

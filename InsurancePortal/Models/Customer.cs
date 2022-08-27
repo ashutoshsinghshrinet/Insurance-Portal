@@ -14,7 +14,7 @@ namespace InsurancePortal.Models
         public int CustomerID { get; set; }
 
         [Required]
-        [MaxLength(20, ErrorMessage ="{0} cannot be greater than {1} characters")]
+        [MaxLength(50, ErrorMessage ="{0} cannot be greater than {1} characters")]
         [MinLength(2,ErrorMessage ="{0} cannot be less than {1} characters")]
         [Display(Name ="Name of Customer")]
         public string CustomerName { get; set; }
@@ -28,7 +28,7 @@ namespace InsurancePortal.Models
         [MaxLength(10,ErrorMessage ="Invalid Phone")]
         [MinLength(10, ErrorMessage = "Invalid Phone")]
         [Display(Name ="Contact Number")]
-        public int ContactNumber { get; set; }
-        
+        public string ContactNumber { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }

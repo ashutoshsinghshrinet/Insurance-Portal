@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace InsurancePortal.Models
 {
@@ -20,8 +21,11 @@ namespace InsurancePortal.Models
         public string PolicyImageURL { get; set; }
 
         public int CategoryId { get; set; }
+
         
         [ForeignKey(nameof(Policy.CategoryId))]
         public PolicyCategory PolicyCategory { get; set; }
+
+        
     }
 }

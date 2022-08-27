@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using InsurancePortal.Data;
 using InsurancePortal.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InsurancePortal.Areas.Manage.Controllers
 {
@@ -44,6 +45,7 @@ namespace InsurancePortal.Areas.Manage.Controllers
             return View(policyCategory);
         }
 
+        [Authorize(Roles = "AppAdmin")]
         // GET: Manage/PolicyCategories/Create
         public IActionResult Create()
         {
@@ -55,6 +57,7 @@ namespace InsurancePortal.Areas.Manage.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,CategoryImageURL")] PolicyCategory policyCategory)
         {
             if (ModelState.IsValid)
@@ -67,6 +70,7 @@ namespace InsurancePortal.Areas.Manage.Controllers
         }
 
         // GET: Manage/PolicyCategories/Edit/5
+        [Authorize(Roles = "AppAdmin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -87,6 +91,7 @@ namespace InsurancePortal.Areas.Manage.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+       
         public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName,CategoryImageURL")] PolicyCategory policyCategory)
         {
             if (id != policyCategory.CategoryId)
@@ -118,6 +123,7 @@ namespace InsurancePortal.Areas.Manage.Controllers
         }
 
         // GET: Manage/PolicyCategories/Delete/5
+        [Authorize(Roles = "AppAdmin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,6 +144,7 @@ namespace InsurancePortal.Areas.Manage.Controllers
         // POST: Manage/PolicyCategories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AppAdmin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var policyCategory = await _context.PolicyCategories.FindAsync(id);

@@ -24,6 +24,7 @@ namespace InsurancePortal.Areas.Show.Controllers
             List<SelectListItem> categories = new List<SelectListItem>();
             categories.Add(new SelectListItem { Selected = true, Value = "", Text = "-- select a category --" });
             categories.AddRange(new SelectList(_context.PolicyCategories, "CategoryId", "CategoryName"));
+            
             ViewData["CategoryId"] = categories.ToArray();
 
             return View();

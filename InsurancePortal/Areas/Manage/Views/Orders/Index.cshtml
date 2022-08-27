@@ -1,0 +1,39 @@
+﻿@model IEnumerable<InsurancePortal.Models.Order>
+@using Microsoft.AspNetCore.Identity
+
+
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Your Applied Policies</h1>
+
+
+
+<div class="card-columns mt-3">
+
+    @foreach (var item in Model)
+    {
+        if (UserManager.GetUserName(User) == item.UserName)
+        {
+            <div class="card">
+                <img class="card-img-top" src="@item.Policy.PolicyImageURL" alt="Card image cap" style="height:250px">
+                <div class="card-body">
+                    <h4 class="card-title"> @item.Policy.PolicyName </h4>
+
+                </div>
+                <div class="card-footer">
+
+                    <a class="btn btn-primary" style="color:white" asp-action="Details" asp-route-id="@item.OrderID">Details</a>
+                </div>
+            </div>
+            
+        }
+        
+    }
+
+</div>
