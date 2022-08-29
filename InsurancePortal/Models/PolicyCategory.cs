@@ -3,6 +3,13 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+
+
+
+// List of Policy Categories
+
+
+
 namespace InsurancePortal.Models
 {
     public class PolicyCategory

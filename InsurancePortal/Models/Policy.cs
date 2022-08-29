@@ -4,6 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
+
+
+// List of Policies with Details 
+
+
+
 namespace InsurancePortal.Models
 {
     public class Policy

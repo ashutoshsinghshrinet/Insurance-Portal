@@ -10,21 +10,21 @@ namespace InsurancePortal.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int QueryId { get; set; }
+        public int QueryId { get; set; }                        //Primary Key for the table
 
         [Required]
-        public string Name { get; set; }
+        public string Name { get; set; }                        //Name
 
         [Required]
-        public string Email { get; set; }
+        public string Email { get; set; }                       //E-Mail
 
         [Required]
         [MaxLength(10, ErrorMessage = "Invalid Phone")]
         [MinLength(10, ErrorMessage = "Invalid Phone")]
         [Display(Name = "Contact Number")]
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }                   //Contact Number
 
         [Required]
-        public string Message { get; set; }
+        public string Message { get; set; }                       //Message Box
     }
 }

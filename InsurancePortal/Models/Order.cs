@@ -4,6 +4,11 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+
+//Model Class for viewing and accessing for Applied Policies  
+
+
+
 namespace InsurancePortal.Models
 {
     [Table(name:"Orders")]
