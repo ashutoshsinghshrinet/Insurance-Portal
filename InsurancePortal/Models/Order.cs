@@ -36,11 +36,7 @@ namespace InsurancePortal.Models
         public DateTime OrderDateTime { get ; set; }
 
 
-        [Display(Name ="Customer ID")]
-        public int CustomerID { get; set; }
-        [ForeignKey(nameof(Order.CustomerID))]
-        public Customer Customer { get; set; }
-
+        
         
     }
 }

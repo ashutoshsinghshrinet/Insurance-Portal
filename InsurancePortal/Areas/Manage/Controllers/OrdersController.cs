@@ -25,7 +25,7 @@ namespace InsurancePortal.Areas.Manage.Controllers
         // GET: Manage/Orders
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Orders.Include(o => o.Customer).Include(o => o.Policy);
+            var applicationDbContext = _context.Orders.Include(o => o.Policy);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -38,7 +38,7 @@ namespace InsurancePortal.Areas.Manage.Controllers
             }
 
             var order = await _context.Orders
-                .Include(o => o.Customer)
+                
                 .Include(o => o.Policy)
                 .FirstOrDefaultAsync(m => m.OrderID == id);
             if (order == null)
@@ -53,7 +53,7 @@ namespace InsurancePortal.Areas.Manage.Controllers
         
         public IActionResult Create()
         {
-            ViewData["CustomerID"] = new SelectList(_context.Customers, "CustomerID", "CustomerName");
+           
             ViewData["PolicyId"] = new SelectList(_context.Pollicies, "PolicyId", "PolicyName");
             return View();
         }
@@ -63,7 +63,7 @@ namespace InsurancePortal.Areas.Manage.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderID,UserName,PolicyId,OrderDateTime,CustomerID")] Order order)
+        public async Task<IActionResult> Create([Bind("OrderID,UserName,PolicyId,OrderDateTime")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +72,7 @@ namespace InsurancePortal.Areas.Manage.Controllers
                 //return RedirectToAction(nameof(Index));
                 return View("ConfirmationPage");
             }
-            ViewData["CustomerID"] = new SelectList(_context.Customers, "CustomerID", "CustomerName", order.CustomerID);
+            
             ViewData["PolicyId"] = new SelectList(_context.Pollicies, "PolicyId", "PolicyName", order.PolicyId);
             return View(order);
         }
@@ -91,7 +91,7 @@ namespace InsurancePortal.Areas.Manage.Controllers
             {
                 return NotFound();
             }
-            ViewData["CustomerID"] = new SelectList(_context.Customers, "CustomerID", "CustomerName", order.CustomerID);
+           
             ViewData["PolicyId"] = new SelectList(_context.Pollicies, "PolicyId", "PolicyName", order.PolicyId);
             return View(order);
         }
@@ -101,7 +101,7 @@ namespace InsurancePortal.Areas.Manage.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderID,UserName,PolicyId,OrderDateTime,CustomerID")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderID,UserName,PolicyId,OrderDateTime")] Order order)
         {
             if (id != order.OrderID)
             {
@@ -128,7 +128,7 @@ namespace InsurancePortal.Areas.Manage.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerID"] = new SelectList(_context.Customers, "CustomerID", "ContactNumber", order.CustomerID);
+            
             ViewData["PolicyId"] = new SelectList(_context.Pollicies, "PolicyId", "PolicyName", order.PolicyId);
             return View(order);
         }
@@ -142,7 +142,7 @@ namespace InsurancePortal.Areas.Manage.Controllers
             }
 
             var order = await _context.Orders
-                .Include(o => o.Customer)
+                
                 .Include(o => o.Policy)
                 .FirstOrDefaultAsync(m => m.OrderID == id);
             if (order == null)
